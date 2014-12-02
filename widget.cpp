@@ -11,7 +11,7 @@ void Widget::paintEvent(QPaintEvent *){
     int X1,X2,Y1,Y2;
     X1 = 100;
     Y1 = 100;
-    X2 = 500;
+    X2 = 200;
     Y2 = 0;
 
     float S = 0;
@@ -25,7 +25,7 @@ void Widget::paintEvent(QPaintEvent *){
         float y = Y1+TgA*(i-X1);
         float yMax = y - 0.5*TgA + 0.5*CosecA;
         float yMin = y + 0.5*TgA - 0.5*CosecA;
-        for(int j = (int)yMin; j <= (int)yMax; j++){
+        for(int j = (int)(yMin + 0.5); j <= (int)(yMax + 0.5); j++){
 
 
 
@@ -36,17 +36,19 @@ void Widget::paintEvent(QPaintEvent *){
             float y = j;
             float offsetY = yMax - y + 0.5;
 
-            if(offsetY < -TgA){S = -pow(offsetY , 2)*CtgA/2;}
+            S = 0;
+            if(offsetY > 0 && offsetY < -TgA){S = -pow(offsetY , 2)*CtgA/2;}
             if(offsetY >= -TgA && offsetY < 1){S = offsetY+TgA - TgA/2;}
-            if(offsetY >= 1 && offsetY < (1 - TgA)){S = 1 + pow(1 - offsetY - TgA , 2)*CtgA;}
+            if(offsetY >= 1 && offsetY < (1 - TgA)){S = 1 + pow(1 - offsetY - TgA , 2)*CtgA*0.5;}
             if(offsetY >= (1 - TgA)){S = 1;}
 
 
             offsetY -= CosecA;
 
-            if(offsetY < -TgA){MS = -pow(offsetY , 2)*CtgA/2;}
+            MS = 0;
+            if(offsetY > 0 && offsetY < -TgA){MS = -pow(offsetY , 2)*CtgA/2;}
             if(offsetY >= -TgA && offsetY < 1){MS = offsetY+TgA - TgA/2;}
-            if(offsetY >= 1 && offsetY < (1 - TgA)){MS = 1 + pow(1 - offsetY - TgA , 2)*CtgA;}
+            if(offsetY >= 1 && offsetY < (1 - TgA)){MS = 1 + pow(1 - offsetY - TgA , 2)*CtgA*0.5;}
             if(offsetY >= (1 - TgA)){MS = 1;}
 
 
